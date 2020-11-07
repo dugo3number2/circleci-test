@@ -12,4 +12,18 @@ jobs:
     steps:
       # Commands are run in a Windows virtual machine environment
       - checkout
-      - run: Write-Host 'Hello, Windows'
+      - run:
+        - name: "Install MinGW-w64"
+        - command: choco install mingw
+      - run:
+        - name: "Compile C++ file"
+        - command: g++ test.cpp -o test.exe
+      - run:
+        - name: "Get artifact ready"
+        - command: |
+          mkdir artifacts
+          copy test.exe artifacts
+        when: on_fail
+      - store_artifacts:
+        path: ./artifacts
+      
