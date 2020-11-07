@@ -20,9 +20,7 @@ jobs:
         - command: g++ test.cpp -o test.exe
       - run:
         - name: "Get artifact ready"
-        - command: |
-          mkdir artifacts
-          copy test.exe artifacts
+        - command: mkdir artifacts && copy test.exe artifacts/test.exe
         when: on_fail
       - store_artifacts:
         path: ./artifacts
